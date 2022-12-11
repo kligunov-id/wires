@@ -1,4 +1,5 @@
-#include <view.hpp>
+#include <window.hpp>
+#include <iostream>
 
 namespace View {
     
@@ -15,9 +16,10 @@ namespace View {
             DEFAULT_WINDOW_WIDTH,
             DEFAULT_WINDOW_HEIGHT,
             DEFAULT_WINDOW_FLAGS);
-            if (window_ptr == nullptr) {
-                throw SDL_GetError();
-            }
+        if (window_ptr == nullptr) {
+            std::cerr << "Could not create window\n";
+            throw SDL_GetError();
+        }
     }
 
     Window::~Window() {

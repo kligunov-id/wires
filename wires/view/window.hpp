@@ -1,12 +1,10 @@
-#ifndef VIEW_H
-#define VIEW_H
+#pragma once
 
 #include <SDL.h>
 
 namespace View {
 
     class Window {
-    private:
         SDL_Window *window_ptr = nullptr;
     public:
         Window();
@@ -17,5 +15,3 @@ namespace View {
         ~Window();
     };
 }
-
-#endif /* !VIEW_H */
