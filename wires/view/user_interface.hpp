@@ -6,6 +6,8 @@
 namespace View {
     class UserInterface {
         Window *window = nullptr;
+        
+        void handle_event(SDL_Event &event);
     public:
         UserInterface();
         UserInterface(const UserInterface &other) = delete;
@@ -13,5 +15,7 @@ namespace View {
         UserInterface(UserInterface &&other) = delete;
         UserInterface& operator=(UserInterface &&other) = delete;
         ~UserInterface();
+        
+        void handle_event_queue();
     };
 }
