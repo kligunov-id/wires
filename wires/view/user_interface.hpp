@@ -4,17 +4,20 @@
 #include <view/window.hpp>
 
 namespace View {
+
+    class GraphicsInitializer {
+    public:
+        GraphicsInitializer();
+        ~GraphicsInitializer();
+    };
+
     class UserInterface {
-        Window *window = nullptr;
+        const GraphicsInitializer initializer;
+        Window window;
         
         void handle_event(SDL_Event &event);
     public:
         UserInterface();
-        UserInterface(const UserInterface &other) = delete;
-        UserInterface& operator=(const UserInterface &other) = delete;
-        UserInterface(UserInterface &&other) = delete;
-        UserInterface& operator=(UserInterface &&other) = delete;
-        ~UserInterface();
         
         void handle_event_queue();
     };

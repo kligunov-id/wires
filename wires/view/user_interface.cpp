@@ -2,18 +2,22 @@
 #include <iostream>
 
 namespace View {
-    UserInterface::UserInterface() {
+
+    GraphicsInitializer::GraphicsInitializer() {
         std::clog << "Initializing SDL..." << std::endl;
         if (SDL_Init(SDL_INIT_VIDEO)) {
             std::cerr << "Could not init SDL2\n";
             throw SDL_GetError();
         }
-        window = new Window();
-        std::clog << "Up and running...\n";
     }
-    
-    UserInterface::~UserInterface() {
-        delete window;
+
+    GraphicsInitializer::~GraphicsInitializer() {
+        std::clog << "Quitting..." << std::endl;
+        SDL_Quit();
+    }
+
+    UserInterface::UserInterface(): initializer(), window() {
+        std::clog << "Up and running..." << std::endl;
     }
 
     void UserInterface::handle_event_queue() {
