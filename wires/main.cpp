@@ -1,10 +1,8 @@
 #include <iostream>
-#include <view/user_interface.hpp>
+#include <controller/game.hpp>
 
 int main(int argc, char* argv[]) {
-    View::UserInterface user_interface;
-    while (true) {
-        user_interface.handle_event_queue();
-    }
+    Controller::Game game;
+    game.run_forever();
     return 0;
 }
