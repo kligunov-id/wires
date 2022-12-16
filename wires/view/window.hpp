@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <cell.hpp>
 
 namespace View {
 
@@ -13,5 +14,7 @@ namespace View {
         Window& operator=(const Window &other) = delete;
         Window& operator=(Window &&other) = delete;
         ~Window();
+
+        void render_frame(const CellFrame &frame);
     };
 }

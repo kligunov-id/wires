@@ -32,4 +32,8 @@ namespace View {
             exit(0);
         }
     }
+
+    void UserInterface::render_frame(const CellFrame &frame) {
+        window.render_frame(frame);
+    }
 }

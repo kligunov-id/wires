@@ -8,7 +8,7 @@ namespace Controller {
         View::UserInterface interface;
         int64_t frame_minimum_duration;
     public:
-        Game(uint64_t fps=60);
+        Game(uint64_t fps=1); // Return to 60 when implement graphics
 
         void run_forever();
     };

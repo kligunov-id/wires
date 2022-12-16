@@ -1,5 +1,6 @@
 #include <window.hpp>
 #include <iostream>
+#include <cell.hpp>
 
 namespace View {
     
@@ -26,5 +27,24 @@ namespace View {
         if (window_ptr != nullptr) {
             SDL_DestroyWindow(window_ptr);
         }
+    }
+
+    void Window::render_frame(const CellFrame &frame) {
+        // A mock function
+        for (auto &line: frame) {
+            for (auto &value: line) {
+                if (value == Cell::head)
+                    std::cout << "h";
+                else if (value == Cell::tail) 
+                    std::cout << "t";
+                else if (value == Cell::empty)
+                    std::cout << "*";
+                else
+                    std::cout << "w";
+                std::cout << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
     }
 }

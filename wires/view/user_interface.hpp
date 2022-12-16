@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <view/window.hpp>
+#include <cell.hpp>
 
 namespace View {
 
@@ -20,5 +21,6 @@ namespace View {
         UserInterface();
         
         void handle_event_queue();
+        void render_frame(const CellFrame &frame);
     };
 }
