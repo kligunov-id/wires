@@ -22,9 +22,9 @@ namespace Controller {
 
     void GameClock::wait_until_next_frame() {
         auto elapsed_time = SDL_GetTicks64() - frame_start;
-            if (frame_minimum_duration > elapsed_time) {
-                SDL_Delay(frame_minimum_duration - elapsed_time);
-            }
-            frame_start += elapsed_time;
+        if (frame_minimum_duration > elapsed_time) {
+            SDL_Delay(frame_minimum_duration - elapsed_time);
+        }
+        frame_start += elapsed_time;
     }
 }

@@ -1,3 +1,5 @@
 # Ignore CMake builds
 /build/*
+
+# Ignore VS Code settings
 /.vscode/*
