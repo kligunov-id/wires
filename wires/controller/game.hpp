@@ -6,10 +6,17 @@
 namespace Controller {
    class Game {
         View::UserInterface interface;
-        int64_t frame_minimum_duration;
     public:
-        Game(uint64_t fps=1); // Return to 60 when implement graphics
-
+        Game(); 
         void run_forever();
+    };
+
+    class GameClock {
+    private:
+        uint64_t frame_minimum_duration;
+        uint64_t frame_start;
+    public:
+        GameClock(uint64_t fps = 60);
+        void wait_until_next_frame();
     };
 };
