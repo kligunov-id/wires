@@ -5,15 +5,14 @@
 
 namespace Controller {
     
-    CellFrame dunder_frame(2, {Cell::head, Cell::tail, Cell::empty});
-
     Game::Game(): interface() {}
     
     void Game::run_forever() {
         GameClock clock;
         while (true) {
             interface.handle_event_queue();
-            interface.render_frame(dunder_frame);
+            interface.render_frame(field.get_frame());
+            field.step();
             clock.wait_until_next_frame();
         }
     }
