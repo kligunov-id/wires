@@ -20,14 +20,41 @@ namespace Model {
         save();
     }
 
-    void Field::load(std::string filename) {
-        field[{1, 0}] = Cell::head;
-        field[{0, 1}] = field[{0, 2}] = field[{1, 3}] = Cell::wire; 
-        field[{2, 1}] = field[{2, 2}] = Cell::wire;
-        field[{2, 1}] = Cell::tail;
+    std::istream& operator>>(std::istream &in, Coordinate &coord) {
+        return in >> coord.x >> coord.y;
     }
+
+    std::istream& operator>>(std::istream &in, Cell &cell) {
+        char c;
+        while (in >> c && c == ' ');
+        if (!in) return in;
+        if (c == static_cast<char>(Cell::wire)) cell = Cell::wire;
+        else if (c == static_cast<char>(Cell::head)) cell = Cell::head;
+        else if (c == static_cast<char>(Cell::tail)) cell = Cell::tail;
+        else throw "Invalid cell type";
+        return in;
+    }
+
+    void Field::load(std::string filename) {
+        std::ifstream in(filename);
+        Coordinate coord;
+        Cell cell;
+        while (in >> coord >> cell) field[coord]=cell;
+    }
+
+    std::ostream& operator<<(std::ostream &out, Coordinate coord) {
+        return out << coord.x << " " << coord.y;
+    }
+
+    std::ostream& operator<<(std::ostream &out, Cell cell) {
+        return out << static_cast<char>(cell);
+    }
+
     void Field::save(std::string filename) {
-        return;
+        std::ofstream out(filename);
+        for (auto &[coord, cell]: field) {
+            out << coord << " " << cell << "\n";
+        }
     }
 
     CellFrame Field::get_frame() {
