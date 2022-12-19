@@ -16,7 +16,7 @@ namespace Model {
         void load(std::string filename = ".save");
         void save(std::string filename = ".save");
 
-        CellFrame get_frame();
+        CellFrame get_frame(int32_t cell_n, int32_t cell_m);
         void step();
         
         Cell operator[](Coordinate coord);

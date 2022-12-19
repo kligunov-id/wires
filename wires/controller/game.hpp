@@ -8,6 +8,8 @@ namespace Controller {
    class Game {
         View::UserInterface interface;
         Model::Field field;
+
+        int32_t cell_size, num_rows, num_columns;
     public:
         Game();
         void run_forever();

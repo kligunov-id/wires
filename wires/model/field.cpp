@@ -3,6 +3,7 @@
 #include <string>
 #include <array>
 #include <fstream>
+#include <iostream>
 
 namespace Model {
 
@@ -29,10 +30,12 @@ namespace Model {
     }
 
     void Field::load(std::string filename) {
+        std::clog << "Loading field..." << std::endl;
         std::ifstream in(filename);
         Coordinate coord;
         Cell cell;
         while (in >> coord >> cell) field[coord]=cell;
+        std::clog << "Field loaded" << std::endl;
     }
 
     std::ostream& operator<<(std::ostream &out, Coordinate coord) {
@@ -44,16 +47,18 @@ namespace Model {
     }
 
     void Field::save(std::string filename) {
+        std::clog << "Saving field..." << std::endl;
         std::ofstream out(filename);
         for (auto &[coord, cell]: field) {
             out << coord << " " << cell << "\n";
         }
+        std::clog << "Field saved";
     }
 
-    CellFrame Field::get_frame() {
-        CellFrame frame(3);
-        for (int64_t x = 0; x < 3; x++) {
-            for(int64_t y = 0; y < 4; y++) {
+    CellFrame Field::get_frame(int32_t num_rows, int32_t num_columns) {
+        CellFrame frame(num_rows);
+        for (int32_t x = 0; x < num_rows; x++) {
+            for (int32_t y = 0; y < num_columns; y++) {
                 frame[x].push_back((*this)[{x, y}]);
             }
         }

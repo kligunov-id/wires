@@ -33,7 +33,7 @@ namespace View {
         }
     }
 
-    void UserInterface::render_frame(const CellFrame &frame) {
-        window.render_frame(frame);
+    void UserInterface::render_frame(const CellFrame &frame, int32_t cell_size) {
+        window.render_frame(frame, cell_size);
     }
 }
