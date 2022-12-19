@@ -99,4 +99,9 @@ namespace Model {
         if (field.find(coord) == field.end()) return Cell::empty;
         return field[coord];
     }
+
+    void Field::set_cell(Coordinate coord, Cell cell) {
+        field[coord] = cell;
+        if (cell == Cell::empty) field.erase(coord);
+    }
 }

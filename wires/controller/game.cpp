@@ -11,13 +11,16 @@ namespace Controller {
     auto DEFAULT_NUM_ROWS = 12;
     auto DEFAULT_NUM_COLUMNS = 16;
     auto DEFAULT_CELL_SIZE = 40;
+    auto DEFAULT_BRUSH_CELL = Cell::wire;
 
-    Game::Game(): interface(), field(), cell_size(DEFAULT_CELL_SIZE),
+    Game::Game(): interface(), field(),
+        brush_cell(DEFAULT_BRUSH_CELL),
+        cell_size(DEFAULT_CELL_SIZE),
         num_rows(DEFAULT_NUM_ROWS),
         num_columns(DEFAULT_NUM_COLUMNS) {
             interface.render_frame(field.get_frame(num_rows, num_columns), cell_size);
         }
-    
+
     void Game::run_forever() {
         std::clog << "Starting main loop" << std::endl;
         GameClock clock;
@@ -50,5 +53,15 @@ namespace Controller {
 
     void Game::handle_event(View::EventQuit) {
         should_finish = true;
+    }
+
+    void Game::handle_event(View::EventMouseClick event) {
+        auto x = event.x / cell_size;
+        auto y = event.y / cell_size;
+        field.set_cell({x, y}, brush_cell);
+    }
+
+    void Game::handle_event(View::EventSetBrush event) {
+        brush_cell = event.cell;
     }
 }

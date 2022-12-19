@@ -12,8 +12,11 @@ namespace Controller {
 
         int32_t cell_size, num_rows, num_columns;
         bool should_finish = false;
+        Cell brush_cell;
 
         void handle_event(View::EventQuit event);
+        void handle_event(View::EventMouseClick event);
+        void handle_event(View::EventSetBrush event);
         void handle_events();
     public:
         Game();
