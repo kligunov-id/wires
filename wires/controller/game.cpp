@@ -3,6 +3,8 @@
 #include <string>
 #include <cell/cell.hpp>
 #include <iostream>
+#include <variant>
+#include <optional>
 
 namespace Controller {
     
@@ -20,12 +22,20 @@ namespace Controller {
         std::clog << "Starting main loop" << std::endl;
         GameClock clock;
         auto i = 0;
-        while (true) {
-            interface.handle_event_queue();
+        while (!should_finish) {
+            handle_events();
             field.step();
             interface.render_frame(field.get_frame(num_rows, num_columns), cell_size);
             clock.wait_until_next_frame();
         }
+    }
+
+    void Game::handle_events() {
+        auto handler = [this](auto event){ this->handle_event(event); };
+        std::optional<View::InterfaceEvent> event;
+        while (event = interface.poll_event()) {
+            std::visit(handler, event.value());
+        } 
     }
 
     GameClock::GameClock(uint64_t fps): frame_minimum_duration(1000 / fps), frame_start(SDL_GetTicks64()) {}
@@ -36,5 +46,9 @@ namespace Controller {
             SDL_Delay(frame_minimum_duration - elapsed_time);
         }
         frame_start = SDL_GetTicks64();
+    }
+
+    void Game::handle_event(View::EventQuit) {
+        should_finish = true;
     }
 }

@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <view/user_interface.hpp>
 #include <model/field.hpp>
+#include <view/interface_events.hpp>
 
 namespace Controller {
    class Game {
@@ -10,6 +11,10 @@ namespace Controller {
         Model::Field field;
 
         int32_t cell_size, num_rows, num_columns;
+        bool should_finish = false;
+
+        void handle_event(View::EventQuit event);
+        void handle_events();
     public:
         Game();
         void run_forever();

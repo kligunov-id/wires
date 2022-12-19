@@ -1,5 +1,7 @@
 #include <user_interface.hpp>
 #include <iostream>
+#include <view/user_interface.hpp>
+#include <optional>
 
 namespace View {
 
@@ -20,19 +22,10 @@ namespace View {
         std::clog << "Up and running..." << std::endl;
     }
 
-    void UserInterface::handle_event_queue() {
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            handle_event(event);
-        }  
+    std::optional<InterfaceEvent> UserInterface::poll_event() {
+        return queue.poll_event();
     }
     
-    void UserInterface::handle_event(SDL_Event &event) {
-        if (event.type == SDL_QUIT) {
-            exit(0);
-        }
-    }
-
     void UserInterface::render_frame(const CellFrame &frame, int32_t cell_size) {
         window.render_frame(frame, cell_size);
     }

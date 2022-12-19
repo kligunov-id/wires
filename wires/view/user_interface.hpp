@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <view/window.hpp>
 #include <cell/cell.hpp>
+#include <view/interface_events.hpp>
+#include <view/event_queue.hpp>
 
 namespace View {
 
@@ -14,14 +16,14 @@ namespace View {
 
     class UserInterface {
         const GraphicsInitializer initializer;
+        EventQueue queue;
         Window window;
         int32_t cell_length, cell_n, cell_m;
 
-        void handle_event(SDL_Event &event);
     public:
         UserInterface();
         
-        void handle_event_queue();
+        std::optional<InterfaceEvent> poll_event();
         void render_frame(const CellFrame &frame, int32_t cell_size);
     };
 }
