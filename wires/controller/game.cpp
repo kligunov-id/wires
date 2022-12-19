@@ -1,7 +1,7 @@
 #include <game.hpp>
 #include <vector>
 #include <string>
-#include <cell.hpp>
+#include <cell/cell.hpp>
 
 namespace Controller {
     

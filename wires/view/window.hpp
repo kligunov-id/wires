@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL.h>
-#include <cell.hpp>
+#include <cell/cell.hpp>
 
 namespace View {
 

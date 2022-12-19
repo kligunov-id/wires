@@ -1,3 +1,4 @@
+add_subdirectory(cell)
 add_subdirectory(model)
 add_subdirectory(view)
 add_subdirectory(controller)

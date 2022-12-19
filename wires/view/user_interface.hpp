@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #include <view/window.hpp>
-#include <cell.hpp>
+#include <cell/cell.hpp>
 
 namespace View {
 

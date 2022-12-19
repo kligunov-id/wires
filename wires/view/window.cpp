@@ -1,6 +1,6 @@
 #include <window.hpp>
 #include <iostream>
-#include <cell.hpp>
+#include <cell/cell.hpp>
 
 namespace View {
     

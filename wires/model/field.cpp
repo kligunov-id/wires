@@ -1,17 +1,10 @@
 #include <field.hpp>
-#include <cell.hpp>
+#include <cell/cell.hpp>
 #include <string>
 #include <array>
 #include <fstream>
 
 namespace Model {
-    // Operator< is needed for the std::map
-    bool operator<(const Coordinate &a, const Coordinate &b) {
-        if (a.x != b.x) return a.x < b.x;
-        return a.y < b.y;
-    }
-
-    Coordinate::Coordinate(int64_t x, int64_t y): x(x), y(y) {}
 
     Field::Field() {
         load();

@@ -1,14 +1,10 @@
 #pragma once
 
-#include <cell.hpp>
+#include <cell/cell.hpp>
 #include <map>
 #include <string>
 
 namespace Model {
-    struct Coordinate {
-        int64_t x, y;
-        Coordinate(int64_t x = 0, int64_t y = 0);
-    };
     
     class Field {
     private:
