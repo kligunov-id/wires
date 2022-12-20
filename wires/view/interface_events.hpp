@@ -18,5 +18,6 @@ namespace View {
     public:
         Coordinate coord;
     };
-    typedef std::variant<EventQuit, EventMouseClick, EventSetBrush, EventMoveFrame> InterfaceEvent;
+    class EventPause {};
+    typedef std::variant<EventQuit, EventMouseClick, EventSetBrush, EventMoveFrame, EventPause> InterfaceEvent;
 }

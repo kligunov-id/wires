@@ -27,7 +27,7 @@ namespace Controller {
         ModelClock model_clock;
         while (!should_finish) {
             handle_events();
-            if (model_clock.should_start()) {
+            if (model_clock.should_start() && is_model_running) {
                 field.step();
             }
             interface.render_frame(field.get_frame(frame_topleft, num_rows, num_columns), cell_size);
@@ -60,6 +60,10 @@ namespace Controller {
     void Game::handle_event(View::EventMoveFrame event) {
         frame_topleft.x += event.coord.x;
         frame_topleft.y += event.coord.y;
+    }
+
+    void Game::handle_event(View::EventPause event) {
+        is_model_running = !is_model_running;
     }
 
     GameClock::GameClock(uint64_t fps): frame_minimum_duration(1000 / fps), frame_start(SDL_GetTicks64()) {}

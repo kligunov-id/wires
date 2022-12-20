@@ -12,6 +12,7 @@ namespace Controller {
 
         int32_t cell_size, num_rows, num_columns;
         bool should_finish = false;
+        bool is_model_running = true;
         Cell brush_cell;
         Coordinate frame_topleft{0,0};
 
@@ -19,6 +20,7 @@ namespace Controller {
         void handle_event(View::EventMouseClick event);
         void handle_event(View::EventSetBrush event);
         void handle_event(View::EventMoveFrame event);
+        void handle_event(View::EventPause event);
         void handle_events();
     public:
         Game();

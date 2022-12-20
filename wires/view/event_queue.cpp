@@ -13,6 +13,7 @@ namespace View {
         process_click(event);
         process_brush_set(event);
         process_move_frame(event);
+        process_pause(event);
     }
     
     void EventQueue::process_quit(const SDL_Event &event) {
@@ -64,6 +65,13 @@ namespace View {
         auto shift = shift_by_keysum(event.key.keysym.sym);
         if (shift) {
             events.emplace(EventMoveFrame(shift.value()));
+        }
+    }
+    
+    void EventQueue::process_pause(const SDL_Event &event) {
+        if (event.type != SDL_KEYDOWN) return;
+        if (event.key.keysym.sym == SDLK_SPACE) {
+            events.emplace(EventPause());
         }
     }
 
