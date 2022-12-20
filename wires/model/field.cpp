@@ -52,7 +52,7 @@ namespace Model {
         for (auto &[coord, cell]: field) {
             out << coord << " " << cell << "\n";
         }
-        std::clog << "Field saved";
+        std::clog << "Field saved" << std::endl;
     }
 
     CellFrame Field::get_frame(int32_t num_rows, int32_t num_columns) {
@@ -66,7 +66,6 @@ namespace Model {
     }
 
     auto get_neighbours(Coordinate coord) {
-        //auto dX{-1, 0, 1}, dY{-1, 0, 1};
         std::vector<Coordinate> neighbours;
         for (auto dx: {-1, 0, 1}) {
             for (auto dy: {-1, 0, 1}) {
@@ -82,7 +81,7 @@ namespace Model {
         for (auto &[coord, cell]: field) {
             if (cell == Cell::head) {
                 for (auto &neighbour: get_neighbours(coord)) {
-                    count_heads[neighbour] ++; 
+                    count_heads[neighbour]++; 
                 }
             }
         }

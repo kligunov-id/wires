@@ -57,7 +57,6 @@ namespace Controller {
         brush_cell = event.cell;
     }
 
-
     GameClock::GameClock(uint64_t fps): frame_minimum_duration(1000 / fps), frame_start(SDL_GetTicks64()) {}
 
     void GameClock::wait_until_next_frame() {
