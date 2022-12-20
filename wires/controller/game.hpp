@@ -28,7 +28,16 @@ namespace Controller {
         uint64_t frame_minimum_duration;
         uint64_t frame_start;
     public:
-        GameClock(uint64_t fps = 1); // Return fps back to 60 when implement graphics
+        GameClock(uint64_t fps = 60);
         void wait_until_next_frame();
+    };
+
+    class ModelClock {
+    private:
+        uint64_t frame_minimum_duration;
+        uint64_t frame_start;
+    public:
+        ModelClock(uint64_t fps = 2); 
+        bool should_start();
     };
 };

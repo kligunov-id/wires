@@ -23,13 +23,15 @@ namespace Controller {
 
     void Game::run_forever() {
         std::clog << "Starting main loop" << std::endl;
-        GameClock clock;
-        auto i = 0;
+        GameClock game_clock;
+        ModelClock model_clock;
         while (!should_finish) {
             handle_events();
-            field.step();
+            if (model_clock.should_start()) {
+                field.step();
+            }
             interface.render_frame(field.get_frame(num_rows, num_columns), cell_size);
-            clock.wait_until_next_frame();
+            game_clock.wait_until_next_frame();
         }
     }
 
@@ -39,16 +41,6 @@ namespace Controller {
         while (event = interface.poll_event()) {
             std::visit(handler, event.value());
         } 
-    }
-
-    GameClock::GameClock(uint64_t fps): frame_minimum_duration(1000 / fps), frame_start(SDL_GetTicks64()) {}
-
-    void GameClock::wait_until_next_frame() {
-        auto elapsed_time = SDL_GetTicks64() - frame_start;        
-        if (frame_minimum_duration > elapsed_time) {
-            SDL_Delay(frame_minimum_duration - elapsed_time);
-        }
-        frame_start = SDL_GetTicks64();
     }
 
     void Game::handle_event(View::EventQuit) {
@@ -63,5 +55,26 @@ namespace Controller {
 
     void Game::handle_event(View::EventSetBrush event) {
         brush_cell = event.cell;
+    }
+
+
+    GameClock::GameClock(uint64_t fps): frame_minimum_duration(1000 / fps), frame_start(SDL_GetTicks64()) {}
+
+    void GameClock::wait_until_next_frame() {
+        auto elapsed_time = SDL_GetTicks64() - frame_start;        
+        if (frame_minimum_duration > elapsed_time) {
+            SDL_Delay(frame_minimum_duration - elapsed_time);
+        }
+        frame_start = SDL_GetTicks64();
+    }
+
+    ModelClock::ModelClock(uint64_t fps) : frame_minimum_duration(1000 / fps), frame_start(SDL_GetTicks64()) {}
+
+    bool ModelClock::should_start() {
+        auto elapsed_time = SDL_GetTicks64() - frame_start;
+        bool should_start = elapsed_time >= frame_minimum_duration;
+        if (should_start)
+            frame_start += elapsed_time;
+        return should_start;
     }
 }
