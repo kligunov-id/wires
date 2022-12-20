@@ -15,6 +15,8 @@ namespace View {
         void process_quit(const SDL_Event &event);
         void process_click(const SDL_Event &event);
         void process_brush_set(const SDL_Event &event);
+        void process_move_frame(const SDL_Event &event);
+        void process_pause(const SDL_Event &event);
     public:
         std::optional<InterfaceEvent> poll_event();
     };

@@ -55,11 +55,11 @@ namespace Model {
         std::clog << "Field saved" << std::endl;
     }
 
-    CellFrame Field::get_frame(int32_t num_rows, int32_t num_columns) {
+    CellFrame Field::get_frame(Coordinate topleft, int32_t num_rows, int32_t num_columns) {
         CellFrame frame(num_rows);
         for (int32_t x = 0; x < num_rows; x++) {
             for (int32_t y = 0; y < num_columns; y++) {
-                frame[x].push_back((*this)[{x, y}]);
+                frame[x].push_back((*this)[{topleft.x + x, topleft.y + y}]);
             }
         }
         return frame;

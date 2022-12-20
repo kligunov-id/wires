@@ -14,5 +14,10 @@ namespace View {
     public:
         Cell cell;
     };
-    typedef std::variant<EventQuit, EventMouseClick, EventSetBrush> InterfaceEvent;
+    class EventMoveFrame {
+    public:
+        Coordinate coord;
+    };
+    class EventPause {};
+    typedef std::variant<EventQuit, EventMouseClick, EventSetBrush, EventMoveFrame, EventPause> InterfaceEvent;
 }

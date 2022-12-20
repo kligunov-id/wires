@@ -1,4 +1,4 @@
-add_library(controller game.cpp game.hpp)
+add_library(controller game.cpp game.hpp clocks.cpp clocks.hpp)
 
 target_include_directories(controller PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${SDL2_INCLUDE_DIRS})
 target_include_directories(controller PUBLIC ${CMAKE_SOURCE_DIR}/wires)

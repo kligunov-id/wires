@@ -8,8 +8,8 @@
 
 namespace Controller {
     
-    auto DEFAULT_NUM_ROWS = 12;
-    auto DEFAULT_NUM_COLUMNS = 16;
+    auto DEFAULT_NUM_ROWS = 18;
+    auto DEFAULT_NUM_COLUMNS = 32;
     auto DEFAULT_CELL_SIZE = 40;
     auto DEFAULT_BRUSH_CELL = Cell::wire;
 
@@ -18,7 +18,7 @@ namespace Controller {
         cell_size(DEFAULT_CELL_SIZE),
         num_rows(DEFAULT_NUM_ROWS),
         num_columns(DEFAULT_NUM_COLUMNS) {
-            interface.render_frame(field.get_frame(num_rows, num_columns), cell_size);
+            interface.render_frame(field.get_frame(frame_topleft, num_rows, num_columns), cell_size);
         }
 
     void Game::run_forever() {
@@ -27,10 +27,10 @@ namespace Controller {
         ModelClock model_clock;
         while (!should_finish) {
             handle_events();
-            if (model_clock.should_start()) {
+            if (model_clock.should_start() && is_model_running) {
                 field.step();
             }
-            interface.render_frame(field.get_frame(num_rows, num_columns), cell_size);
+            interface.render_frame(field.get_frame(frame_topleft, num_rows, num_columns), cell_size);
             game_clock.wait_until_next_frame();
         }
     }
@@ -50,30 +50,19 @@ namespace Controller {
     void Game::handle_event(View::EventMouseClick event) {
         auto x = event.x / cell_size;
         auto y = event.y / cell_size;
-        field.set_cell({x, y}, brush_cell);
+        field.set_cell({x + frame_topleft.x, y + frame_topleft.y}, brush_cell);
     }
 
     void Game::handle_event(View::EventSetBrush event) {
         brush_cell = event.cell;
     }
 
-    GameClock::GameClock(uint64_t fps): frame_minimum_duration(1000 / fps), frame_start(SDL_GetTicks64()) {}
-
-    void GameClock::wait_until_next_frame() {
-        auto elapsed_time = SDL_GetTicks64() - frame_start;        
-        if (frame_minimum_duration > elapsed_time) {
-            SDL_Delay(frame_minimum_duration - elapsed_time);
-        }
-        frame_start = SDL_GetTicks64();
+    void Game::handle_event(View::EventMoveFrame event) {
+        frame_topleft.x += event.coord.x;
+        frame_topleft.y += event.coord.y;
     }
 
-    ModelClock::ModelClock(uint64_t fps) : frame_minimum_duration(1000 / fps), frame_start(SDL_GetTicks64()) {}
-
-    bool ModelClock::should_start() {
-        auto elapsed_time = SDL_GetTicks64() - frame_start;
-        bool should_start = elapsed_time >= frame_minimum_duration;
-        if (should_start)
-            frame_start += elapsed_time;
-        return should_start;
+    void Game::handle_event(View::EventPause event) {
+        is_model_running = !is_model_running;
     }
 }
