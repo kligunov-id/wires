@@ -12,6 +12,7 @@ namespace View {
         process_quit(event);
         process_click(event);
         process_brush_set(event);
+        process_move_frame(event);
     }
     
     void EventQueue::process_quit(const SDL_Event &event) {
@@ -42,6 +43,27 @@ namespace View {
         auto cell = cell_by_keysum(event.key.keysym.sym);
         if (cell) {
             events.emplace(EventSetBrush(cell.value()));
+        }
+    }
+    
+   std::optional<Coordinate> shift_by_keysum(SDL_Keycode keycode) {
+        if (keycode == SDLK_RIGHT) {
+            return Coordinate(0, -1);
+        } else if (keycode == SDLK_LEFT) {
+            return Coordinate(0, 1);
+        } else if (keycode == SDLK_UP) {
+            return Coordinate(1, 0);
+        } else if (keycode == SDLK_DOWN) {
+            return Coordinate(-1, 0);
+        }
+        return {};
+   } 
+
+    void EventQueue::process_move_frame(const SDL_Event &event) {
+        if (event.type != SDL_KEYDOWN) return;
+        auto shift = shift_by_keysum(event.key.keysym.sym);
+        if (shift) {
+            events.emplace(EventMoveFrame(shift.value()));
         }
     }
 
