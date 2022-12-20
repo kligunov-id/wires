@@ -45,16 +45,16 @@ namespace View {
             events.emplace(EventSetBrush(cell.value()));
         }
     }
-    
+
    std::optional<Coordinate> shift_by_keysum(SDL_Keycode keycode) {
         if (keycode == SDLK_RIGHT) {
-            return Coordinate(0, -1);
-        } else if (keycode == SDLK_LEFT) {
             return Coordinate(0, 1);
+        } else if (keycode == SDLK_LEFT) {
+            return Coordinate(0, -1);
         } else if (keycode == SDLK_UP) {
-            return Coordinate(1, 0);
-        } else if (keycode == SDLK_DOWN) {
             return Coordinate(-1, 0);
+        } else if (keycode == SDLK_DOWN) {
+            return Coordinate(1, 0);
         }
         return {};
    } 
