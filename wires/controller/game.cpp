@@ -8,8 +8,8 @@
 
 namespace Controller {
     
-    auto DEFAULT_NUM_ROWS = 12;
-    auto DEFAULT_NUM_COLUMNS = 16;
+    auto DEFAULT_NUM_ROWS = 18;
+    auto DEFAULT_NUM_COLUMNS = 32;
     auto DEFAULT_CELL_SIZE = 40;
     auto DEFAULT_BRUSH_CELL = Cell::wire;
 
