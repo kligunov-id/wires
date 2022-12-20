@@ -11,7 +11,7 @@ namespace Controller {
     auto DEFAULT_NUM_ROWS = 18;
     auto DEFAULT_NUM_COLUMNS = 32;
     auto DEFAULT_CELL_SIZE = 40;
-    auto DEFAULT_BRUSH_CELL = Cell::wire;
+    auto DEFAULT_BRUSH_CELL = Cell::alive;
 
     Game::Game(): interface(), field(),
         brush_cell(DEFAULT_BRUSH_CELL),

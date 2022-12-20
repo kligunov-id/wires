@@ -28,13 +28,9 @@ namespace View {
     
     std::optional<Cell> cell_by_keysum(SDL_Keycode keycode) {
         if (keycode == SDLK_0) {
-            return {Cell::empty};
+            return {Cell::dead};
         } else if (keycode == SDLK_1) {
-            return {Cell::wire};
-        } else if (keycode == SDLK_2) {
-            return {Cell::head};
-        } else if (keycode == SDLK_3) {
-            return {Cell::tail};
+            return {Cell::alive};
         }
         return {};
     }

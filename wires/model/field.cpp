@@ -22,9 +22,7 @@ namespace Model {
         char c;
         while (in >> c && c == ' ');
         if (!in) return in;
-        if (c == static_cast<char>(Cell::wire)) cell = Cell::wire;
-        else if (c == static_cast<char>(Cell::head)) cell = Cell::head;
-        else if (c == static_cast<char>(Cell::tail)) cell = Cell::tail;
+        if (c == static_cast<char>(Cell::alive)) cell = Cell::alive;
         else throw "Invalid cell type";
         return in;
     }
@@ -79,28 +77,27 @@ namespace Model {
     void Field::step() {
         std::map<Coordinate, int8_t> count_heads;
         for (auto &[coord, cell]: field) {
-            if (cell == Cell::head) {
+            if (cell == Cell::alive) {
                 for (auto &neighbour: get_neighbours(coord)) {
                     count_heads[neighbour]++; 
                 }
             }
         }
-        for (auto &[coord, cell]: field) {
-            if (cell == Cell::tail) cell = Cell::wire;
-            else if (cell == Cell::head) cell = Cell::tail;
-            else if (cell == Cell::wire) {
-                if (count_heads[coord] == 1 || count_heads[coord] == 2) cell = Cell::head;
-            }
+        std::map<Coordinate, Cell> new_field;
+        for (auto &[coord, count]: count_heads) {
+            if (count == 3 || (count == 2 && (*this)[coord] == Cell::alive))
+                new_field[coord] = Cell::alive;
         }
+        std::swap(new_field, field);
     }
 
     Cell Field::operator[](Coordinate coord) {
-        if (field.find(coord) == field.end()) return Cell::empty;
+        if (field.find(coord) == field.end()) return Cell::dead;
         return field[coord];
     }
 
     void Field::set_cell(Coordinate coord, Cell cell) {
         field[coord] = cell;
-        if (cell == Cell::empty) field.erase(coord);
+        if (cell == Cell::dead) field.erase(coord);
     }
 }

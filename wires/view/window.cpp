@@ -32,13 +32,9 @@ namespace View {
     }
     
     void Window::set_cell_color(Cell cell) {
-        if (cell == Cell::wire) {
-            SDL_SetRenderDrawColor(renderer_ptr, 239, 185, 73, 255);
-        } else if (cell == Cell::head) {
-            SDL_SetRenderDrawColor(renderer_ptr, 73, 208, 239, 255);
-        } else if (cell == Cell::tail) {
-            SDL_SetRenderDrawColor(renderer_ptr, 239, 73, 73, 255);
-        } else { // cell == Cell::empty
+        if (cell == Cell::alive) {
+            SDL_SetRenderDrawColor(renderer_ptr, 255, 255, 255, 255);
+        } else { // cell == Cell::dead
             SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255);
         }
     }

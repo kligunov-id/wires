@@ -3,7 +3,7 @@
 #include <vector>
 #include <cstdint>
 
-enum class Cell: char {wire = 'W', head = 'H', tail = 'T', empty = 'E'};
+enum class Cell: char {alive='A', dead='D'};
 
 typedef std::vector<std::vector<Cell>> CellFrame;
 

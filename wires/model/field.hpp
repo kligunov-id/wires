@@ -13,8 +13,8 @@ namespace Model {
         Field();
         ~Field();
 
-        void load(std::string filename = ".save");
-        void save(std::string filename = ".save");
+        void load(std::string filename = ".life");
+        void save(std::string filename = ".life");
 
         CellFrame get_frame(Coordinate topleft, int32_t cell_n, int32_t cell_m);
         void set_cell(Coordinate coord, Cell cell);
